@@ -33,15 +33,30 @@
         //遍历keys
         i = 0
         while(i< keys['length']){
-            x = document.createElement('div')
-            main.appendChild(x)
+            div = document.createElement('div')
+            div.className = 'row'
+            main.appendChild(div)
             row = keys[i] //第几个数组
             console.log(row)
             j = 0
             while(j< row.length){
-                z = document.createElement('kbd')
-                z.textContent = row[j]
-                x.appendChild(z)
+                kbd = document.createElement('kbd')
+                span = document.createElement('span')
+                kbd.className = 'key'
+                span.textContent = row[j]
+                span.className = 'text'
+                kbd.appendChild(span)
+                img = document.createElement('img')
+                if(hash[row[j]]){
+                    img.src = 'http://' + hash[row[j]] +'/favicon.ico'
+                }
+                else{
+                    img.src = './1.png'
+                }
+                img.onerror = function(x){
+                    x.target.src = './1.png'
+                }
+                div.appendChild(kbd)
                 //加入编辑按钮
                 btn = document.createElement('button')
                 btn.textContent = '编辑'
@@ -53,7 +68,8 @@
                     hash[key] = w
                     localStorage.setItem('ppp',JSON.stringify(hash))
                 }
-                z.appendChild(btn)
+                kbd.appendChild(img)
+                kbd.appendChild(btn)
                 j++
             }
             i++
